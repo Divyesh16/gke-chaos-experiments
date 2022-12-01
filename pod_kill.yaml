@@ -1,7 +1,8 @@
+
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  name: custom-16698
+  name: custom-1669876216
   namespace: litmus
   labels:
     subject: custom_litmus
@@ -20,13 +21,13 @@ spec:
       steps:
         - - name: install-chaos-experiments
             template: install-chaos-experiments
-        - - name: pod-delete-teh
-            template: pod-delete-teh
+        - - name: pod-delete-fm3
+            template: pod-delete-fm3
     - name: install-chaos-experiments
       inputs:
         artifacts:
-          - name: pod-delete-teh
-            path: /tmp/pod-delete-teh.yaml
+          - name: pod-delete-fm3
+            path: /tmp/pod-delete-fm3.yaml
             raw:
               data: >
                 apiVersion: litmuschaos.io/v1alpha1
@@ -179,24 +180,24 @@ spec:
                       app.kubernetes.io/version: 2.14.0
       container:
         args:
-          - kubectl apply -f /tmp/pod-delete-teh.yaml -n
+          - kubectl apply -f /tmp/pod-delete-fm3.yaml -n
             {{workflow.parameters.adminModeNamespace}} &&  sleep 30
         command:
           - sh
           - -c
         image: litmuschaos/k8s:2.14.0
-    - name: pod-delete-teh
+    - name: pod-delete-fm3
       inputs:
         artifacts:
-          - name: pod-delete-teh
-            path: /tmp/chaosengine-pod-delete-teh.yaml
+          - name: pod-delete-fm3
+            path: /tmp/chaosengine-pod-delete-fm3.yaml
             raw:
               data: |
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  generateName: pod-delete-teh
+                  generateName: pod-delete-fm3
                   labels:
                     workflow_run_id: "{{workflow.uid}}"
                 spec:
@@ -222,6 +223,7 @@ spec:
                         probe: []
       container:
         args:
-          - -file=/tmp/chaosengine-pod-delete-teh.yaml
+          - -file=/tmp/chaosengine-pod-delete-fm3.yaml
           - -saveName=/tmp/engine-name
         image: litmuschaos/litmus-checker:2.14.0
+
