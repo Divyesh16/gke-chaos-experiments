@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  name: custom-1669805420
+  name: custom-16698
   namespace: litmus
   labels:
     subject: custom_litmus
