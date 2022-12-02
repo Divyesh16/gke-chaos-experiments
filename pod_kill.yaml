@@ -12,7 +12,7 @@ spec:
       - name: adminModeNamespace
         value: litmus
       - name: appName
-        value: nginx
+        value: ${AppName}
   entrypoint: custom-chaos
   securityContext:
     runAsNonRoot: true
